@@ -1,0 +1,17 @@
+Overview:
+- The HTML file includes the necessary meta tags and sets up an empty div with the id "root" where the React app will be rendered.
+- It imports React and ReactDOM libraries from unpkg (a CDN).
+- The script section defines a React functional component named App.
+- The App component uses the React.useState hook to manage the state of the time variable, initialized with the current time.
+- The React.useEffect hook is used to set up an interval that updates the time state every second.
+- The App component returns a React element with a header tag displaying a greeting and the current time.
+- Finally, it creates a root using ReactDOM.createRoot and renders the App component into the "root" div.
+
+Explanation of Concepts:
+* React Components: The code defines a functional component App using the function keyword. React components are the building blocks of a React application.
+
+* State Management with useState: The useState hook is used to declare state in functional components. Here, it initializes the time state with the current time and provides a function (setTime) to update it.
+
+* Effect Hook (useEffect): The useEffect hook is employed to perform side effects in function components. In this case, it sets up an interval to update the time state every second, simulating a real-time clock.
+
+* JSX and React.createElement: JSX (JavaScript XML) is a syntax extension for JavaScript recommended by React. It allows you to write HTML elements in JavaScript code. The code uses React.createElement to create a React element with the "header" tag and display the greeting and time.
