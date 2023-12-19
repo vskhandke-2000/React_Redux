@@ -72,7 +72,6 @@ function Header() {
 }
 
 function Menu() {
-  const day = new Date().toDateString();
   return (
     <main className="menu">
       <h2>Today's Special</h2>
@@ -142,17 +141,17 @@ function Menu() {
           <Pizza pizzaObj={pizza} key={pizza.name} />
         ))}
       </ul>
-      <p>Date: {day}</p>
     </main>
   );
 }
 
 function Footer() {
-  // const hour = new Date().getHours();
-  // // console.log(hour);
-  // const openHour = 9;
-  // const closeHour = 20;
-  // const isOpen = hour >= openHour && hour <= closeHour;
+  const day = new Date().toDateString();
+  const hour = new Date().getHours();
+  // console.log(hour);
+  const openHour = 9;
+  const closeHour = 20;
+  const isOpen = hour >= openHour && hour <= closeHour;
   // console.log(isOpen);
   // if (hour >= openHour && hour <= closeHour) alert("We're Currently Open!!");
   // else {
@@ -160,8 +159,24 @@ function Footer() {
   // }
   return (
     <footer className="footer">
-      We're Open from 9 AM to 8 PM <br />
-      <p style={{ alignContent: "center" }}>© 2023 Pizza Corner</p>
+      <p style={{ textAlign: "center" }}>Date: {day}</p>
+      {isOpen && (
+        <div className="order">
+          <p style={{ color: "green", backgroundColor: "cyan" }}>
+            We're Open for Your Orders until {closeHour}:00; Come visit us or
+            Order Online!
+          </p>
+          <button className="btn">Order Now</button>
+        </div>
+      )}
+      {!isOpen && (
+        <p style={{ color: "lightred", backgroundColor: "lightgrey" }}>
+          We're <span style={{ color: "red" }}>UNAVAILABLE</span> for your
+          Order.
+        </p>
+      )}
+      <br />
+      <p style={{ textAlign: "center" }}>© 2023 Pizza Corner</p>
     </footer>
   );
 }
