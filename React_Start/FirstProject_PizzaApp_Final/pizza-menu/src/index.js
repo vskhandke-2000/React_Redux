@@ -144,12 +144,14 @@ function Menu() {
         ))}
       </ul> */}
 
-      {numPizzas > 0 && (
+      {numPizzas > 0 ? (
         <ul className="pizzas">
           {pizzaData.map((pizza) => (
             <Pizza pizzaObj={pizza} key={pizza.name} />
           ))}
         </ul>
+      ) : (
+        <p>We're still wait for our Menu! Come back soon!🙏</p>
       )}
     </main>
   );
@@ -160,13 +162,14 @@ function Footer() {
   const hour = new Date().getHours();
   // console.log(hour);
   const openHour = 9;
-  const closeHour = 20;
+  const closeHour = 17;
   const isOpen = hour >= openHour && hour <= closeHour;
   // console.log(isOpen);
   // if (hour >= openHour && hour <= closeHour) alert("We're Currently Open!!");
   // else {
   //   alert("Sorry we're out of service!");f
   // }
+  if (!isOpen) alert("Sorry! We're NOT Open!!");
   return (
     <footer className="footer">
       <p style={{ textAlign: "center" }}>Date: {day}</p>
@@ -180,9 +183,20 @@ function Footer() {
         </div>
       )}
       {!isOpen && (
-        <p style={{ color: "lightred", backgroundColor: "lightgrey" }}>
+        <p
+          style={{
+            color: "lightred",
+            backgroundColor: "lightgrey",
+            textAlign: "center",
+          }}
+        >
           We're <span style={{ color: "red" }}>UNAVAILABLE</span> for your
           Order.
+          <br />
+          Please come back tomorrow between{" "}
+          <span style={{ color: "green" }}>
+            {openHour}:00 to {closeHour}:00 !!
+          </span>
         </p>
       )}
       <br />
