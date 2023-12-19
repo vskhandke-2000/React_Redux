@@ -8,7 +8,7 @@ import "./index.css";
 
 const pizzaData = [
   {
-    name: "Focaccia",
+    name: "Pizza Focaccia",
     ingredients: "Bread with italian olive oil and rosemary",
     price: 6,
     photoName: "pizzas/focaccia.jpg",
@@ -75,31 +75,85 @@ function Menu() {
   const day = new Date().toDateString();
   return (
     <main className="menu">
-      <p>Date: {day}</p>
       <h2>Today's Special</h2>
-      <Pizza
-        name="Pizza Focaccia"
-        ingredients="Bread with italian olive oil and rosemary"
-        photoName="pizzas/focaccia.jpg"
-        price={6}
+      {/* <Pizza
+        name={pizzaData[0].name}
+        ingredients={pizzaData[0].ingredients}
+        photoName={pizzaData[0].photoName}
+        price={pizzaData[0].price}
+        outOfStock={pizzaData[0].soldOut}
       />
       <Pizza
-        name="Pizza Fungi"
-        ingredients="Tomato, mozarella, mushrooms, and onion"
-        price={12}
-        photoName="pizzas/funghi.jpg"
+        name={pizzaData[1].name}
+        ingredients={pizzaData[1].ingredients}
+        photoName={pizzaData[1].photoName}
+        price={pizzaData[1].price}
+        outOfStock={pizzaData[1].soldOut}
       />
+      <Pizza
+        name={pizzaData[2].name}
+        ingredients={pizzaData[2].ingredients}
+        photoName={pizzaData[2].photoName}
+        price={pizzaData[2].price}
+        outOfStock={pizzaData[2].soldOut}
+      />
+      <Pizza
+        name={pizzaData[3].name}
+        ingredients={pizzaData[3].ingredients}
+        photoName={pizzaData[3].photoName}
+        price={pizzaData[3].price}
+        outOfStock={pizzaData[3].soldOut}
+      />
+      <Pizza
+        name={pizzaData[4].name}
+        ingredients={pizzaData[4].ingredients}
+        photoName={pizzaData[4].photoName}
+        price={pizzaData[4].price}
+        outOfStock={pizzaData[4].soldOut}
+      />
+      <Pizza
+        name={pizzaData[5].name}
+        ingredients={pizzaData[5].ingredients}
+        photoName={pizzaData[5].photoName}
+        price={pizzaData[5].price}
+        outOfStock={pizzaData[5].soldOut} 
+      /> */}
+
+      {/* <div>
+        {pizzaData.map((pizza) => (
+          <Pizza
+            name={pizza.name}
+            photoName={pizza.photoName}
+            ingredients={pizza.ingredients}
+            price={pizza.price}
+          />
+        ))}
+      </div> */}
+
+      {/* <div>
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} />
+        ))}
+      </div>
+      {/* Warning: Each child in a list should have a unique "key" prop. */}
+
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
+      <p>Date: {day}</p>
     </main>
   );
 }
 
 function Footer() {
-  const hour = new Date().getHours();
-  // console.log(hour);
-  const openHour = 9;
-  const closeHour = 20;
-  const isOpen = hour >= openHour && hour <= closeHour;
-  console.log(isOpen);
+  // const hour = new Date().getHours();
+  // // console.log(hour);
+  // const openHour = 9;
+  // const closeHour = 20;
+  // const isOpen = hour >= openHour && hour <= closeHour;
+  // console.log(isOpen);
   // if (hour >= openHour && hour <= closeHour) alert("We're Currently Open!!");
   // else {
   //   alert("Sorry we're out of service!");f
@@ -117,14 +171,14 @@ function Footer() {
 function Pizza(props) {
   // console.log(props);
   return (
-    <div className="pizza">
-      <img src={props.photoName} alt={props.name} />
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
       <div>
-        <h2>{props.name}</h2>
-        <p>{props.ingredients}</p>
-        <span>{props.price + 3}</span>
+        <h2>{props.pizzaObj.name}</h2>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
