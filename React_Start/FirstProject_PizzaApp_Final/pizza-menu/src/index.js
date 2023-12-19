@@ -3,6 +3,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+// css file import
+import "./index.css";
+
 // const pizzaData = [
 //   {
 //     name: "Focaccia",
@@ -50,21 +53,25 @@ import ReactDOM from "react-dom/client";
 
 function Header() {
   return (
-    <header>
+    <header className="header">
       <h1>Pizza Corner</h1>
-      <h3>Pizza Menu</h3>
     </header>
   );
 }
 
 function Menu() {
+  const day = new Date().toDateString();
   return (
-    <div>
-      <p>Today's Special</p>
+    <main className="menu">
+      <p>Date: {day}</p>
+      <h2>Today's Special</h2>
       <Pizza />
       <Pizza />
       <Pizza />
-    </div>
+      <Pizza />
+      <Pizza />
+      <Pizza />
+    </main>
   );
 }
 
@@ -72,15 +79,16 @@ function Footer() {
   const hour = new Date().getHours();
   // console.log(hour);
   const openHour = 9;
-  const closeHour = 21;
+  const closeHour = 20;
   const isOpen = hour >= openHour && hour <= closeHour;
   // if (hour >= openHour && hour <= closeHour) alert("We're Currently Open!!");
   // else {
-  //   alert("Sorry we're out of service!");
+  //   alert("Sorry we're out of service!");f
   // }
   return (
-    <footer>
-      <p>We're Open from 9 AM to 9 PM © 2023 Pizza Corner</p>
+    <footer className="footer">
+      We're Open from 9 AM to 8 PM <br />
+      <p style={{ alignContent: "center" }}>© 2023 Pizza Corner</p>
     </footer>
   );
 }
@@ -89,7 +97,7 @@ function Footer() {
 function App() {
   //   const x = "Jonas"; // EsLint gives warning
   return (
-    <div>
+    <div className="container ">
       <Header />
       <Menu />
       <Footer />
