@@ -72,6 +72,8 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Today's Special</h2>
@@ -136,11 +138,19 @@ function Menu() {
       </div>
       {/* Warning: Each child in a list should have a unique "key" prop. */}
 
-      <ul className="pizzas">
+      {/* <ul className="pizzas">
         {pizzaData.map((pizza) => (
           <Pizza pizzaObj={pizza} key={pizza.name} />
         ))}
-      </ul>
+      </ul> */}
+
+      {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
