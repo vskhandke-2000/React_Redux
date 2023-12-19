@@ -98,7 +98,7 @@ function App() {
 }
 
 // Pizza Component
-function Pizza(props) {
+function Pizza() {
   return (
     <div className="pizza">
       <img src="pizzas/focaccia.jpg" alt="Focaccia" />
