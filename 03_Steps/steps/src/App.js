@@ -12,12 +12,15 @@ export default function App() {
   const [step, setStep] = useState(1);
   // console.log(step, setStep);
 
+  // const [test] = useState({ name: "VK" });
+
   // const step = 1;
   const msg = `Step ${step}: ${messages[step - 1]}`;
 
   function handlePrevious() {
     if (step > 1) {
       setStep(step - 1);
+      // test.name = "VK"; // BAD Practice
     } else {
       alert("Steps reach at start! Press Next after reading current step!");
     }
@@ -25,6 +28,7 @@ export default function App() {
   function handleNext() {
     if (step < 3) {
       setStep(step + 1);
+      // test.name = "K"; // BAD Practice
     } else {
       alert("End of Step! Only 3 steps are there.");
     }
@@ -33,12 +37,13 @@ export default function App() {
   return (
     <div className="steps">
       <div className="numbers">
-        <div className={`${step >= 1 && step < 4 ? "active" : ""} `}>1</div>
-        <div className={`${step >= 2 && step < 4 ? "active" : ""} `}>2</div>
-        <div className={`${step >= 3 && step < 4 ? "active" : ""} `}>3</div>
+        <div className={step >= 1 && step < 4 ? "active" : ""}>1</div>
+        <div className={step >= 2 && step < 4 ? "active" : ""}>2</div>
+        <div className={step >= 3 && step < 4 ? "active" : ""}>3</div>
       </div>
 
       <p className="message">{step > 3 ? null : msg}</p>
+      {/* <p className="message">{test.name}</p> */}
 
       <div className="buttons">
         <button
