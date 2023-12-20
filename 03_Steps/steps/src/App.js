@@ -8,6 +8,17 @@ const messages = [
 ];
 
 export default function App() {
+  return (
+    <div>
+      <Steps />
+      {/* <Steps /> */}
+      {/* Just comment out the code in index.css 
+      for .close {} comment out position: absolute; */}
+    </div>
+  );
+}
+
+function Steps() {
   // const arr = useState(1);
   // console.log(arr);
   const [step, setStep] = useState(1);
