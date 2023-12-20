@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 
 const messages = [
@@ -39,7 +40,7 @@ export default function App() {
   const sign = isOpen ? "-" : "+";
 
   return (
-    <div>
+    <React.Fragment>
       {/* <button
         className="close"
         onClick={() => {
@@ -89,6 +90,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </div>
+    </React.Fragment>
   );
 }
