@@ -12,6 +12,8 @@ export default function App() {
   const [step, setStep] = useState(1);
   // console.log(step, setStep);
 
+  // use of another piece of state
+  const [isOpen, setIsOpen] = useState(true);
   // const [test] = useState({ name: "VK" });
 
   // const step = 1;
@@ -34,35 +36,59 @@ export default function App() {
     }
   }
 
+  const sign = isOpen ? "-" : "+";
+
   return (
-    <div className="steps">
-      <div className="numbers">
-        <div className={step >= 1 && step < 4 ? "active" : ""}>1</div>
-        <div className={step >= 2 && step < 4 ? "active" : ""}>2</div>
-        <div className={step >= 3 && step < 4 ? "active" : ""}>3</div>
-      </div>
+    <div>
+      {/* <button
+        className="close"
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+      >
+        &times;
+      </button> */}
 
-      <p className="message">{step > 3 ? null : msg}</p>
-      {/* <p className="message">{test.name}</p> */}
+      <button
+        className="close"
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+      >
+        {sign}
+      </button>
 
-      <div className="buttons">
-        <button
-          style={{ backgroundColor: "#7950f2", color: "#fff" }}
-          // onClick={() => alert('Previous')}
-          // onClick={alert("Test")}
-          // onClick={handlePrevious()}
-          // onClick={() => handlePrevious()}
-          onClick={handlePrevious}
-        >
-          Previous
-        </button>
-        <button
-          style={{ backgroundColor: "#7950f2", color: "#fff" }}
-          onClick={handleNext}
-        >
-          Next
-        </button>
-      </div>
+      {isOpen && (
+        <div className="steps">
+          <div className="numbers">
+            <div className={step >= 1 && step < 4 ? "active" : ""}>1</div>
+            <div className={step >= 2 && step < 4 ? "active" : ""}>2</div>
+            <div className={step >= 3 && step < 4 ? "active" : ""}>3</div>
+          </div>
+
+          <p className="message">{step > 3 ? null : msg}</p>
+          {/* <p className="message">{test.name}</p> */}
+
+          <div className="buttons">
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              // onClick={() => alert('Previous')}
+              // onClick={alert("Test")}
+              // onClick={handlePrevious()}
+              // onClick={() => handlePrevious()}
+              onClick={handlePrevious}
+            >
+              Previous
+            </button>
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              onClick={handleNext}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
