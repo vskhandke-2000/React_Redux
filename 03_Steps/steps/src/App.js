@@ -22,15 +22,22 @@ export default function App() {
 
   function handlePrevious() {
     if (step > 1) {
-      setStep(step - 1);
+      // setStep(step - 1);
       // test.name = "VK"; // BAD Practice
+
+      setStep((currStep) => currStep - 1);
     } else {
       alert("Steps reach at start! Press Next after reading current step!");
     }
   }
   function handleNext() {
     if (step < 3) {
-      setStep(step + 1);
+      // setStep(step + 1);
+      // // setStep(step + 1);
+
+      setStep((currStep) => currStep + 1);
+      // setStep((currStep) => currStep + 1);
+
       // test.name = "K"; // BAD Practice
     } else {
       alert("End of Step! Only 3 steps are there.");
@@ -44,6 +51,7 @@ export default function App() {
       {/* <button
         className="close"
         onClick={() => {
+          // Updating State based on current state
           setIsOpen(!isOpen);
         }}
       >
@@ -53,7 +61,8 @@ export default function App() {
       <button
         className="close"
         onClick={() => {
-          setIsOpen(!isOpen);
+          // Updating state based on current state but using call back function.
+          setIsOpen((currIsOpen) => !currIsOpen);
         }}
       >
         {sign}
