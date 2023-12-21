@@ -11,25 +11,60 @@ export default function App() {
 function Counter() {
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(0);
+  const [buttonExist, setButtonExist] = useState(true);
 
   const isPositiveStep = step > 0;
 
   const date = new Date();
   date.setDate(date.getDate() + count);
+
+  function handleReset() {
+    setStep(1);
+    setCount(0);
+    setButtonExist(false);
+  }
+
   return (
     <div>
       <div>
-        <button onClick={() => setStep((currStep) => currStep - 1)}>-</button>
+        <input
+          type="range"
+          min={1}
+          max={10}
+          value={step}
+          // onChange={(e) => setStep(+e.target.value)} // + also works to convert String to Number
+          onChange={(e) => {
+            setStep(Number(e.target.value));
+            setButtonExist(true);
+          }}
+        />
         <span>Step: {step}</span>
-        <button onClick={() => setStep((currStep) => currStep + 1)}>+</button>
       </div>
       {isPositiveStep ? (
         <div>
-          <button onClick={() => setCount((currCount) => currCount - step)}>
+          <button
+            onClick={() => {
+              setCount((currCount) => currCount - step);
+              setButtonExist(true);
+            }}
+          >
             -
           </button>
-          <span>Count: {count}</span>
-          <button onClick={() => setCount((currCount) => currCount + step)}>
+          {/* <span>Count: {count}</span> */}
+          <input
+            type="text"
+            value={count}
+            onChange={(e) => {
+              setCount(+e.target.value);
+              setButtonExist(true);
+            }}
+          />
+          <button
+            onClick={() => {
+              setCount((currCount) => currCount + step);
+              setButtonExist(true);
+            }}
+          >
             +
           </button>
         </div>
@@ -72,6 +107,7 @@ function Counter() {
           <span>{date.toDateString()}</span>
         </p>
       </div>
+      <div>{buttonExist && <button onClick={handleReset}>Reset</button>}</div>
     </div>
   );
 }
