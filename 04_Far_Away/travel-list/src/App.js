@@ -21,14 +21,25 @@ export default function App() {
     );
   }
 
+  // Function to clear the list
+  function handleClearList() {
+    // Code
+    // console.log("Working!");
+    // Ensure that user click the button by intension
+    const confirm = window.confirm("Are you sure to delete all items");
+    if (confirm) setItems([]);
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItems} />
       <PackingList
         items={items}
+        setItems={setItems}
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
+        onClearList={handleClearList}
       />
       <Stats items={items} />
     </div>
@@ -85,7 +96,13 @@ function Form(props) {
   );
 }
 
-function PackingList({ items, onDeleteItem, onToggleItem }) {
+function PackingList({
+  items,
+  setItems,
+  onDeleteItem,
+  onToggleItem,
+  onClearList,
+}) {
   const [sortBy, setSortBy] = useState("input");
 
   // Sorting Array using Derived State
@@ -100,6 +117,7 @@ function PackingList({ items, onDeleteItem, onToggleItem }) {
     sortedItems = items
       .slice()
       .sort((a, b) => Number(a.packed) - Number(b.packed));
+
   return (
     <div className="list">
       <ul>
@@ -119,6 +137,8 @@ function PackingList({ items, onDeleteItem, onToggleItem }) {
           <option value="description">Sort by Description</option>
           <option value="packed">Sort by Packed Status</option>
         </select>
+        {/* Button to clear the entire list */}
+        <button onClick={onClearList}>Clear List</button>
       </div>
     </div>
   );
