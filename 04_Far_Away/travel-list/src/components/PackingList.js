@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Item } from "./Item";
+import Item from "./Item";
+// if "export default function Item"  default is not written then we have to import like = import { Item } from "./Item";
 
 export default function PackingList({
   items,
