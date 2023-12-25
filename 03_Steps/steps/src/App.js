@@ -91,25 +91,33 @@ function Steps() {
           {/* <p className="message">{test.name}</p> */}
 
           <div className="buttons">
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-              // onClick={() => alert('Previous')}
-              // onClick={alert("Test")}
-              // onClick={handlePrevious()}
-              // onClick={() => handlePrevious()}
+            <Button
+              textColor="#fff"
+              backgroundColor="#7950f2"
               onClick={handlePrevious}
-            >
-              Previous
-            </button>
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              text="Previous"
+            />
+            <Button
+              textColor="#fff"
+              backgroundColor="#7950f2"
               onClick={handleNext}
-            >
-              Next
-            </button>
+              text="Next"
+            />
           </div>
         </div>
       )}
     </React.Fragment>
+  );
+}
+
+// Children Prop
+function Button({ textColor, backgroundColor, onClick, text }) {
+  return (
+    <button
+      style={{ backgroundColor: backgroundColor, color: textColor }}
+      onClick={onClick}
+    >
+      {text}
+    </button>
   );
 }
