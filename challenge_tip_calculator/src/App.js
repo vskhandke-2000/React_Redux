@@ -1,5 +1,4 @@
 import "./styles.css";
-import { useState } from "react";
 
 export default function App() {
   return (
@@ -9,4 +8,15 @@ export default function App() {
   );
 }
 
-function TipCalculator() {}
+function TipCalculator() {
+  return (
+    <div>
+      <form>
+        <p>How much was the bill?</p>
+        <span>
+          <input type="number" />
+        </span>
+      </form>
+    </div>
+  );
+}
