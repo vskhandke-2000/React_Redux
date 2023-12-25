@@ -95,14 +95,20 @@ function Steps() {
               textColor="#fff"
               backgroundColor="#7950f2"
               onClick={handlePrevious}
-              text="Previous"
-            />
+              // text="Previous"
+              // emoji="👈"
+            >
+              <span>👈</span> Previous
+            </Button>
             <Button
               textColor="#fff"
               backgroundColor="#7950f2"
               onClick={handleNext}
-              text="Next"
-            />
+              // text="Next"
+              // emoji="👉"
+            >
+              Next <span>👉</span>
+            </Button>
           </div>
         </div>
       )}
@@ -111,13 +117,24 @@ function Steps() {
 }
 
 // Children Prop
-function Button({ textColor, backgroundColor, onClick, text }) {
+function Button({ textColor, backgroundColor, onClick, children }) {
   return (
     <button
       style={{ backgroundColor: backgroundColor, color: textColor }}
       onClick={onClick}
     >
-      {text}
+      {children}
     </button>
   );
 }
+// function Button({ textColor, backgroundColor, onClick, text, emoji }) {
+//   return (
+//     <button
+//       style={{ backgroundColor: backgroundColor, color: textColor }}
+//       onClick={onClick}
+//     >
+//       <span>{emoji}</span>
+//       {text}
+//     </button>
+//   );
+// }
