@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialFriends = [
   {
     id: 118836,
@@ -19,33 +21,158 @@ const initialFriends = [
   },
 ];
 
+function Button({ onClick, children }) {
+  return (
+    <button onClick={onClick} className="button">
+      {children}
+    </button>
+  );
+}
+
 export default function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false);
+
+  const [showSplitBill, setShowSplitBill] = useState(false);
+
+  const [friends, setFriends] = useState(initialFriends);
+
+  function handleShowAddFriend(curr) {
+    setShowAddFriend(() => !curr);
+  }
+
+  function handleAddFriend(friend) {
+    setFriends((friends) => [...friends, friend]);
+  }
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList />
+        <FriendsList
+          friends={friends}
+          setShowSplitBill={setShowSplitBill}
+          showSplitBill={showSplitBill}
+        />
+        {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} />}
+        <Button onClick={() => handleShowAddFriend(showAddFriend)}>
+          {showAddFriend ? "Close" : "Add Friend"}
+        </Button>
       </div>
+      {showSplitBill && <FormSplitBill />}
     </div>
   );
 }
 
-function FriendsList() {
-  const friends = initialFriends;
+function FriendsList({ friends, setShowSplitBill, showSplitBill }) {
+  // const friends = initialFriends;
 
   return (
     <ul>
       {friends.map((friend) => (
-        <Friend friend={friend} key={friend.id} />
+        <Friend
+          friend={friend}
+          key={friend.id}
+          setShowSplitBill={setShowSplitBill}
+          showSplitBill={showSplitBill}
+        />
       ))}
     </ul>
   );
 }
 
-function Friend({ friend }) {
+function Friend({ friend, setShowSplitBill, showSplitBill }) {
+  function handleShowSplit(curr) {
+    setShowSplitBill(() => !curr);
+  }
+
   return (
     <li>
       <img src={friend.image} alt={friend.name} />
       <h3>{friend.name}</h3>
+
+      {friend.balance < 0 && (
+        <p className="red">
+          You owe {friend.name} {Math.abs(friend.balance)}€
+        </p>
+      )}
+      {friend.balance > 0 && (
+        <p className="green">
+          {friend.name} owe you {friend.balance}€
+        </p>
+      )}
+      {friend.balance === 0 && <p>You and {friend.name} are equal.</p>}
+
+      {/* <button className="button">Select</button> */}
+      <Button onClick={() => handleShowSplit(showSplitBill)}>Select</Button>
     </li>
+  );
+}
+
+function FormAddFriend({ onAddFriend }) {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("https://i.pravatar.cc/48");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!name || !image) return;
+    const id = crypto.randomUUID();
+
+    const newFriend = {
+      id,
+      name,
+      image: `${image}?=${id}`,
+      balane: 0,
+    };
+
+    // console.log(newFriend);
+    onAddFriend(newFriend);
+
+    setName("");
+    setImage("https://i.pravatar.cc/48");
+  }
+
+  return (
+    <form className="form-add-friend" onSubmit={handleSubmit}>
+      <label>🧑‍🤝‍🧑Friend Name</label>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      <label>📷Image URL</label>
+      <input
+        type="text"
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
+      />
+
+      {/* <button className="button">Add Friend</button> */}
+      <Button>Add</Button>
+    </form>
+  );
+}
+
+function FormSplitBill() {
+  return (
+    <form className="form-split-bill">
+      <h2>Split the bill with X</h2>
+
+      <label>🤑Bill Value</label>
+      <input type="text" />
+
+      <label>Your Expense</label>
+      <input type="text" />
+
+      <label>X's Expense</label>
+      <input type="text" disabled />
+
+      <label>🤑Who is Paying the Bill?</label>
+      <select>
+        <option value="user">You</option>
+        <option value="friend">X</option>
+      </select>
+
+      <Button>Split Bill</Button>
+    </form>
   );
 }
