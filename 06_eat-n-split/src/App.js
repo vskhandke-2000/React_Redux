@@ -38,6 +38,7 @@ export default function App() {
 
   function handleShowAddFriend(curr) {
     setShowAddFriend(() => !curr);
+    setSelectedFriend(null);
   }
 
   function handleAddFriend(friend) {
@@ -46,7 +47,21 @@ export default function App() {
   }
 
   function handleSelection(friend) {
-    setSelectedFriend(friend);
+    // setSelectedFriend(friend);
+
+    setSelectedFriend((curr) => (curr?.id === friend.id ? null : friend));
+    setShowAddFriend(false);
+  }
+
+  function handleSplitBill(value) {
+    // console.log(value);
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
   }
 
   return (
@@ -63,7 +78,12 @@ export default function App() {
           {showAddFriend ? "Close" : "Add Friend"}
         </Button>
       </div>
-      {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} />}
+      {selectedFriend && (
+        <FormSplitBill
+          selectedFriend={selectedFriend}
+          onSplitBill={handleSplitBill}
+        />
+      )}
     </div>
   );
 }
@@ -86,7 +106,8 @@ function FriendsList({ friends, onSelection, selectedFriend }) {
 }
 
 function Friend({ friend, onSelection, selectedFriend }) {
-  const isSelected = selectedFriend.id === friend.id;
+  const isSelected = selectedFriend?.id === friend.id;
+  // JavaScript : selectedFriend?.id: This is using optional chaining. It checks if selectedFriend is not null or undefined. If selectedFriend is defined, it then accesses the id property. If selectedFriend is null or undefined, the entire expression evaluates to undefined.
 
   return (
     <li className={isSelected ? "selected" : ""}>
@@ -100,7 +121,7 @@ function Friend({ friend, onSelection, selectedFriend }) {
       )}
       {friend.balance > 0 && (
         <p className="green">
-          {friend.name} owe you {friend.balance}€
+          {friend.name} owes you {friend.balance}€
         </p>
       )}
       {friend.balance === 0 && <p>You and {friend.name} are equal.</p>}
@@ -159,22 +180,48 @@ function FormAddFriend({ onAddFriend }) {
   );
 }
 
-function FormSplitBill({ selectedFriend }) {
+function FormSplitBill({ selectedFriend, onSplitBill }) {
+  const [bill, setBill] = useState("");
+  const [paidByUser, setPaidByUser] = useState("");
+  const [whoIsPaying, setWhoIsPaying] = useState("user");
+  const friendExpense = bill ? bill - paidByUser : "";
+  // console.log(friendExpense);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!bill || !paidByUser) return;
+
+    onSplitBill(whoIsPaying === "user" ? friendExpense : -paidByUser);
+  }
+
   return (
-    <form className="form-split-bill">
+    <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>Split the bill with {selectedFriend.name}</h2>
 
       <label>🤑Bill Value</label>
-      <input type="text" />
+      <input
+        type="text"
+        value={bill}
+        onChange={(e) => setBill(+e.target.value)}
+      />
 
       <label>🧑Your Expense</label>
-      <input type="text" />
+      <input
+        type="text"
+        value={paidByUser}
+        onChange={(e) => {
+          setPaidByUser(+e.target.value > bill ? paidByUser : +e.target.value);
+        }}
+      />
 
       <label>🧑‍🤝‍🧑{selectedFriend.name}'s Expense</label>
-      <input type="text" disabled />
+      <input type="text" value={friendExpense} disabled />
 
       <label>🤑Who is Paying the Bill?</label>
-      <select>
+      <select
+        value={whoIsPaying}
+        onChange={(e) => setWhoIsPaying(e.target.value)}
+      >
         <option value="user">You</option>
         <option value="friend">{selectedFriend.name}</option>
       </select>
