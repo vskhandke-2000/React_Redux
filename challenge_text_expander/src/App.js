@@ -1,4 +1,53 @@
 import "./App.css";
+import { useState } from "react";
+import PropTypes from "prop-types";
+
+TextExpander.propTypes = {
+  expanded: PropTypes.bool,
+  collapsedNumWords: PropTypes.number,
+  expandButtonText: PropTypes.string,
+  collapseButtonText: PropTypes.string,
+  buttonColor: PropTypes.string,
+  className: PropTypes.string,
+};
+
+function TextExpander({
+  expanded = false,
+  collapsedNumWords = 10,
+  expandButtonText = "Show more",
+  collapseButtonText = "Show less",
+  buttonColor = "#00F",
+  className = "",
+  children,
+}) {
+  const [isExpanded, setIsExpanded] = useState(expanded);
+
+  function handleExpasion(isExpanded) {
+    setIsExpanded(!isExpanded);
+  }
+
+  const displayText = isExpanded
+    ? children
+    : children.split(" ").slice(0, collapsedNumWords).join(" ") + "...";
+
+  const buttonStyle = {
+    background: "none",
+    border: "none",
+    font: "inherit",
+    cursor: "pointer",
+    marginLeft: "6px",
+    color: buttonColor,
+  };
+
+  return (
+    <div className={className}>
+      <span>{displayText}</span>
+      <button onClick={() => handleExpasion(isExpanded)} style={buttonStyle}>
+        {isExpanded ? collapseButtonText : expandButtonText}
+      </button>
+    </div>
+  );
+}
 
 export default function App() {
   return (
@@ -32,8 +81,4 @@ export default function App() {
       </TextExpander>
     </div>
   );
-}
-
-function TextExpander() {
-  return <div>TODO</div>;
 }
