@@ -26,6 +26,9 @@ export default function App() {
   );
 }
 
+// console.log(<DifferentContent />);
+// // console.log(DifferentContent());
+
 function Tabbed({ content }) {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -43,6 +46,8 @@ function Tabbed({ content }) {
       ) : (
         <DifferentContent />
       )}
+
+      {/* {TabContent({ item: content.at(0) })} */}
     </div>
   );
 }
@@ -53,7 +58,7 @@ function Tab({ num, activeTab, onClick }) {
       className={activeTab === num ? "tab active" : "tab"}
       onClick={() => onClick(num)}
     >
-      Tab {num + 1}
+      Tab {num === 3 ? "Reset" : num + 1}
     </button>
   );
 }
@@ -64,6 +69,10 @@ function TabContent({ item }) {
 
   function handleInc() {
     setLikes(likes + 1);
+  }
+
+  function handleTripleInc() {
+    setLikes(likes + 3);
   }
 
   return (
@@ -79,7 +88,7 @@ function TabContent({ item }) {
         <div className="hearts-counter">
           <span>{likes} ❤️</span>
           <button onClick={handleInc}>+</button>
-          <button>+++</button>
+          <button onClick={handleTripleInc}>+++</button>
         </div>
       </div>
 
@@ -94,7 +103,7 @@ function TabContent({ item }) {
 function DifferentContent() {
   return (
     <div className="tab-content">
-      <h4>I'm a DIFFERENT tab, so I reset state 💣💥</h4>
+      <h4>All Tabs Reset</h4>
     </div>
   );
 }
