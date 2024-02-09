@@ -70,14 +70,49 @@ function TabContent({ item }) {
   const [showDetails, setShowDetails] = useState(true);
   const [likes, setLikes] = useState(0);
 
+  // console.log("RENDER");
+
   function handleInc() {
-    setLikes(likes + 1);
+    // setLikes(likes + 1);
+    setLikes((prevLikes) => prevLikes + 1);
   }
 
   function handleTripleInc() {
-    setLikes(likes + 3);
+    // setLikes(likes + 1);
+    // // console.log(likes); Likes will be 0 here.
+    // setLikes(likes + 1);
+    // // console.log(likes); Likes will be 0 here.
+    // setLikes(likes + 1);
+    // // console.log(likes); Likes will be 0 here.
+    // // So final output will be likes increased by 1.
+
+    // setLikes(likes + 3);
+    // Alternate Way to increase likes by 3.
+    // setLikes((prevLikes) => prevLikes + 1); // Callback function
+    // setLikes((prevLikes) => prevLikes + 1);
+    // setLikes((prevLikes) => prevLikes + 1);
+
+    handleInc();
+    handleInc();
+    handleInc();
   }
 
+  function handleUndo() {
+    setShowDetails(true);
+    setLikes(0);
+    // console.log(likes); // State Update Batching
+  }
+
+  // function handleUndoIn2s() {
+  //   setTimeout(() => {
+  //     setShowDetails(true);
+  //     setLikes(0);
+  //   }, 2000);
+  // }
+
+  function handleUndoIn2s() {
+    setTimeout(handleUndo, 2000);
+  }
   return (
     <div className="tab-content">
       <h4>{item.summary}</h4>
@@ -96,8 +131,8 @@ function TabContent({ item }) {
       </div>
 
       <div className="tab-undo">
-        <button>Undo</button>
-        <button>Undo in 2s</button>
+        <button onClick={handleUndo}>Undo</button>
+        <button onClick={handleUndoIn2s}>Undo in 2s</button>
       </div>
     </div>
   );
